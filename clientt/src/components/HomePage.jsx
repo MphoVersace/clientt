@@ -4,7 +4,7 @@ import Post from "./Post";
 
 // Fetching  data from  backend
 axios
-  .get("http://localhost:6000/api/products")
+  .get("http://localhost:4000/api/posts")
   .then((response) => console.log(response.data))
   .catch((error) => console.error("Error fetching data:", error));
 

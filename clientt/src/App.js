@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import HomePage from "./components/HomePage";
 import NewPostForm from "./components/NewPostForm";
@@ -10,8 +10,10 @@ const App = () => {
   return (
     <Router>
       <NavigationBar />
-      <Route path="/" component={HomePage} />
-      <Route path="/new" component={NewPostForm} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/new" element={<NewPostForm />} />
+      </Routes>
     </Router>
   );
 };
