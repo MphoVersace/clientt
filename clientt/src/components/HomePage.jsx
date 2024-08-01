@@ -8,6 +8,11 @@ axios
   .then((response) => console.log(response.data))
   .catch((error) => console.error("Error fetching data:", error));
 
+const apiUrl = process.env.REACT_APP_API_URL;
+fetch(`${apiUrl}/products`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
 
