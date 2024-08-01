@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <NavigationBar />
-      <Route exact path="/" component={HomePage} />
+      <Route path="/" component={HomePage} />
       <Route path="/new" component={NewPostForm} />
     </Router>
   );

@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "./Post";
 
+// Fetching  data from  backend
+axios
+  .get("http://localhost:6000/api/products")
+  .then((response) => console.log(response.data))
+  .catch((error) => console.error("Error fetching data:", error));
+
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
 
