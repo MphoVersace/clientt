@@ -5,8 +5,8 @@ const NavBar = () => {
   return (
     <nav>
       <Link to="/">Home</Link>
-      <Link to="/new">New Post</Link>
       <Link to="/">Post</Link>
+      <Link to="/new">New Post</Link>
     </nav>
   );
 };

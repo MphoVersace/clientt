@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./App.css"; // Import the CSS file
 
 const NewPostForm = () => {
   const [title, setTitle] = useState("");
@@ -14,20 +15,29 @@ const NewPostForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-      />
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
-      />
-      <button type="submit">Add Post</button>
-    </form>
+    <div className="new-post-form-container">
+      <h2 className="form-title">Create New Post</h2>
+      <form onSubmit={handleSubmit} className="new-post-form">
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+          className="form-input"
+          required
+        />
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Content"
+          className="form-textarea"
+          required
+        />
+        <button type="submit" className="form-button">
+          Add Post
+        </button>
+      </form>
+    </div>
   );
 };
 
