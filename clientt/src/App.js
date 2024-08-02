@@ -4,7 +4,8 @@ import NavigationBar from "./components/NavigationBar";
 import HomePage from "./components/HomePage";
 import NewPostForm from "./components/NewPostForm";
 
-import "./App.css";
+import "./index.css";
+import "../App.css;";
 
 const App = () => {
   return (
