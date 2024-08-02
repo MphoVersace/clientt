@@ -1,7 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
-}
-.home-page {
+  font-style: italic;
+  font-family: "Times New Roman", Times, serif;
   text-align: center; /* Center align all content */
   padding: 20px;
 }
@@ -110,8 +109,19 @@ nav {
   background-color: #343a40; /* Dark background color */
   padding: 10px 20px; /* Space around the links */
   display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Space out links */
   align-items: center; /* Center items vertically */
+  position: relative; /* Positioning context for the heading */
+}
+
+nav h1 {
+  position: absolute; /* Position heading absolutely */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for exact center */
+  color: #ccc;
+}
+
+nav .links {
+  margin-left: auto; /* Push links to the right */
 }
 
 nav a {
@@ -130,6 +140,7 @@ nav a.active {
   font-weight: bold; /* Bold text for active link */
   border-bottom: 2px solid #ffffff; /* Underline effect for active link */
 }
+
 .header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
@@ -258,18 +269,21 @@ nav a.active {
 
 /* NewPostForm.css */
 .new-post-form-container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 30px;
+  max-width: 700px;
   margin: auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Light background for a clean look */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-family: "Roboto", sans-serif; /* Elegant font */
   color: #333;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .new-post-form {
@@ -280,31 +294,83 @@ nav a.active {
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   font-size: 1rem;
+  font-family: "Roboto", sans-serif; /* Matching font */
 }
 
 .form-input {
-  height: 40px;
+  height: 50px;
 }
 
 .form-textarea {
-  height: 150px;
+  height: 200px;
+  resize: vertical; /* Allow vertical resizing */
 }
 
 .form-button {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 1rem;
   color: #fff;
-  background-color: #28a745;
+  background-color: #007bff; /* Subtle blue for modern look */
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
 .form-button:hover {
-  background-color: #218838;
+  background-color: #00b309; /* Darker blue on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+.posts-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap onto multiple lines if necessary */
+  gap: 20px; /* Adds space between the blog posts */
+  justify-content: space-between; /* Distributes space between and around items */
+  padding: 20px;
+}
+
+.post {
+  flex: 1 1 calc(33% - 20px); /* Adjusts the width of each blog post */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  background-color: #fff; /* Background color of the blog post */
+  border-radius: 8px; /* Rounded corners for the blog post */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted effect */
+  padding: 15px;
+  max-width: calc(
+    33% - 20px
+  ); /* Ensures the posts don't exceed the specified width */
+}
+
+.post img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Rounded corners for the image */
+}
+
+.post h3 {
+  font-size: 1.25em;
+  margin: 0 0 10px;
+}
+
+.post p {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.post a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.post a:hover {
+  text-decoration: underline;
+}
+.body {
+  font-style: italic;
 }

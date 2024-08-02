@@ -6,7 +6,7 @@ import NewPostForm from "./NewPostForm";
 import Post from "./Post";
 
 import "./App.css";
-
+import "../styling/Post.css";
 const App = () => {
   return (
     <Router>

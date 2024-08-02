@@ -1,23 +1,58 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-import { Link } from "react-router-dom"; // Import Link if not already
+import { Link } from "react-router-dom";
 import "./App.css";
+import "../index.css";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/posts") // Make sure this URL is correct
-      .then((response) => setPosts(response.data))
-      .catch((error) => console.error("Error fetching posts:", error));
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/posts");
+        setPosts(response.data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
   }, []);
+
+  // Example posts data for demonstration purposes
+  const examplePosts = [
+    {
+      id: 1,
+      title: "18 3-Step Summer Lunches To Make Forever",
+      image:
+        "https://www.eatingwell.com/thmb/uVahXWoJ-nIPnXOy7Ufc_nLA1pw=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/8239558-c2345ceb0ca34be5b06e87005b729b64.jpg",
+      content:
+        "Start your day off right with these nutritious breakfast recipes. Packed with energy and flavor, these dishes are sure to get your day off to a great start.",
+    },
+    {
+      id: 2,
+      title: "25 High-Protein Breakfast Recipes to Make Forever",
+      image:
+        "https://www.eatingwell.com/thmb/2O4Qn91IVkDs316jWp_Z-Yzzq00=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/EWL-green-breakfast-sandwich-with-pesto-hero-247-cabef6ec85f74ca58d5a0ecac41eeb0b.jpg",
+      content:
+        "You might wake up with a smile on your face thinking of these yummy breakfast ideas. Rated with 4- and 5-stars, our readers have been loving these recipes, and we think you will too. Each serving contains at least 15 grams of protein, which helps support healthy digestion, muscle growth and energy production. You’ll want to start your day with tasty options like our Peanut-Ginger Tofu Scramble or High-Protein Peach Muffins for a delicious and nourishing morning meal!",
+    },
+    {
+      id: 3,
+      title:
+        "This Crustless Spinach & Goat Cheese Quiche Is As Simple As It Gets",
+      image:
+        "https://www.eatingwell.com/thmb/L9Z7owYqn0RhHLA6jHHcexgR_SU=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/crustless-spinach-goat-cheese-quiche-beauty3x2-288-bdeffb8fad064303b704a47c67b106c9.jpg",
+      content:
+        "Let this weekend-worthy quiche elevate your next brunch spread. You’ll love how easy it is to pull together without the fuss of baking and filling a crust. We love the convenience of pre-washed baby spinach, but any dark leafy green, from kale to Swiss chard, can work well in its place.",
+    },
+  ];
 
   return (
     <div className="home-page">
       <div className="header">
-        <h1>Healthy Recipes</h1>
+        <h1>Eating Well</h1>
         <p className="subheading">
           Healthy, delicious recipes, including quick dinner, easy lunch ideas,
           snacks, breakfast, soup and more, from the food and nutrition experts
@@ -26,45 +61,80 @@ const HomePage = () => {
       </div>
       <div className="recipe-categories">
         {/* Recipe category links */}
-        <a href="/diabetes-friendly">Diabetes-Friendly Dinner Recipes</a>
-        <a href="/best-of-the-best">Best of the Best</a>
-        <a href="/healthy-side-dish">Healthy Side Dish Recipes</a>
-        <a href="/healthy-salad">Healthy Salad Recipes</a>
-        <a href="/healthy-appetizer">Healthy Appetizer Recipes</a>
-        <a href="/Dietary Restrictions">Dietary Restrictions</a>
-        <a href="/Nutrient-Focused Diets">Nutrient-Focused Diets</a>
-        <a href="/Healthy Holiday & Occasion Recipes">
+        <Link to="https://www.eatingwell.com/recipes/18345/health-condition/diabetic/dinner/">
+          Diabetes-Friendly Dinner Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/category/7904309/best-of-the-best/">
+          Best of the Best
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17986/side-dishes/">
+          Healthy Side Dish Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17981/salad/">
+          Healthy Salad Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18041/appetizer/">
+          Healthy Appetizer Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/22824/dietary-restrictions/">
+          Dietary Restrictions
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/22825/nutrient-focused-diets/">
+          Nutrient-Focused Diets
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17959/holidays-occasions/">
           Healthy Holiday & Occasion Recipes
-        </a>
-        <a href="/Recipes for Weight Loss & Diet">
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18045/weight-loss-diet/">
           Recipes for Weight Loss & Diet
-        </a>
-        <a href="/Healthy Bread Recipes">Healthy Bread Recipes</a>
-        <a href="/Healthy Cooking Methods & Styles">
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17915/bread/">
+          Healthy Bread Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17942/cooking-methods-styles/">
           Healthy Cooking Methods & Styles
-        </a>
-        <a href="/Healthy Drink Recipes">Healthy Drink Recipes</a>
-        <a href="/Healthy Sauce & Condiment Recipes">
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17949/drinks/">
+          Healthy Drink Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17956/sauces-condiments/">
           Healthy Sauce & Condiment Recipes
-        </a>
-        <a href="/Healthy Main Dish Recipes">Healthy Main Dish Recipes</a>
-        <a href="/Healthy Mealtime Recipes">Healthy Mealtime Recipes</a>
-        <a href="/Healthy Regional Recipes">Healthy Regional Recipes</a>
-        <a href="/Healthy Seasonal Recipes">Healthy Seasonal Recipes</a>
-        <a href="/Healthy Soup Recipes">Healthy Soup Recipes</a>
-        <a href="/Healthy Lifestyle Diets">Healthy Lifestyle Diets</a>
-        <a href="/Healthy Ingredient Recipes">Healthy Ingredient Recipes</a>
-        <a href="/Healthy Cookie & Dessert Recipes">
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17965/main-dishes/">
+          Healthy Main Dish Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17968/mealtimes/">
+          Healthy Mealtime Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17979/cuisines-regions/">
+          Healthy Regional Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/17985/seasonal/">
+          Healthy Seasonal Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18042/soup/">
+          Healthy Soup Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18024/lifestyle-diets/">
+          Healthy Lifestyle Diets
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18043/ingredients/">
+          Healthy Ingredient Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18044/desserts/">
           Healthy Cookie & Dessert Recipes
-        </a>
-        <a href="/Healthy Kids Recipes">Healthy Kids Recipes</a>
-        <a href="/Recipes for Specific Health Conditions">
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/18049/healthy-kids/">
+          Healthy Kids Recipes
+        </Link>
+        <Link to="https://www.eatingwell.com/recipes/22823/health-condition/">
           Recipes for Specific Health Conditions
-        </a>
+        </Link>
       </div>
+
       <div className="upper-social">
         <a
-          href="https://pinterest.com"
+          href="https://za.pinterest.com/pin-builder/?description=Recipes+for+Specific+Health+Condition&media=https%3A%2F%2Fwww.eatingwell.com%2Fthmb%2FiY-orpF_zEK-tayEo2bF01rnHP8%3D%2F750x0%2F76564-b95124f8ff224029b0bb711a709b7a63.jpg&method=button&url=https%3A%2F%2Fwww.eatingwell.com%2Frecipes%2F22823%2Fhealth-condition%2F%3Futm_source%3Dpinterest%26utm_medium%3Dsocial%26utm_campaign%3Dshareurlbuttons"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -78,19 +148,12 @@ const HomePage = () => {
         >
           LinkedIn
         </a>{" "}
-        |
-        <a
-          href="mailto:example@example.com" // Changed to a mailto link
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Email
-        </a>
+        |<a href="mailto:example@example.com">Email</a>
       </div>
 
       <h2 className="posts-header">Latest Blog Posts</h2>
       <div className="posts-grid">
-        {posts.map((post) => (
+        {examplePosts.map((post) => (
           <div key={post.id} className="post">
             <h3>{post.title}</h3>
             <img src={post.image} alt={post.title} />
@@ -114,13 +177,13 @@ const HomePage = () => {
             <h3>Quick Links</h3>
             <ul>
               <li>
-                <a href="/about">About Us</a>
+                <Link to="/about">About Us</Link>
               </li>
               <li>
-                <a href="/contact">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
               <li>
-                <a href="/privacy">Privacy Policy</a>
+                <Link to="/privacy">Privacy Policy</Link>
               </li>
             </ul>
           </div>

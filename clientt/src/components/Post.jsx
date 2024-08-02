@@ -1,59 +1,107 @@
-import React from "react";
+// src/components/PostPage.jsx
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getPost, addComment, deleteComments } from "./api"; // Adjust the path if necessary
+import "../styling/Post.css";
+import "./App.css";
 
-// Post component
-const Post = ({ post }) => {
+const PostPage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [post, setPost] = useState(null);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const fetchedPost = await getPost(id);
+        if (fetchedPost) {
+          setPost(fetchedPost);
+          setComments(fetchedPost.comments || []);
+        } else {
+          setError("Post not found");
+        }
+      } catch (err) {
+        setError("Failed to fetch post");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    const newComment = { text: comment };
+    try {
+      await addComment(id, newComment);
+      setComments((prevComments) => [...prevComments, newComment]);
+      setComment("");
+    } catch (err) {
+      setError("Failed to add comment");
+    }
+  };
+
+  const handleDeleteComments = async () => {
+    try {
+      await deleteComments(id);
+      setComments([]);
+    } catch (err) {
+      setError("Failed to delete comments");
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+
+  if (error) return <div>{error}</div>;
+
+  if (!post) return <div>Post not found</div>;
+
   return (
-    <div>
+    <div className="post-page">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        &larr; Back
+      </button>
       <h2>{post.title}</h2>
-      <p>{post.content}</p>
+      <img src={post.image} alt={post.title} className="post-image" />
+      <p className="post-content">{post.content}</p>
+      <hr className="post-divider" />
+      <h3>Comments</h3>
+      <button className="delete-comments-button" onClick={handleDeleteComments}>
+        Erase
+      </button>
+      <ul className="comments-list">
+        {comments.length > 0 ? (
+          comments.map((comment, index) => (
+            <li key={index} className="comment-item">
+              {comment.text}
+            </li>
+          ))
+        ) : (
+          <li>No comments yet</li>
+        )}
+      </ul>
+      <form onSubmit={handleCommentSubmit} className="comment-form">
+        <div className="comment-input-group">
+          <label htmlFor="comment">Leave a comment:</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            required
+            className="comment-textarea"
+          />
+        </div>
+        <button type="submit" className="comment-button">
+          Add Comment
+        </button>
+      </form>
     </div>
   );
 };
 
-// Array of posts
-const posts = [
-  {
-    id: "1",
-    title: "Bard Vs ChatGTP: Which one is better for coding?",
-    content:
-      "For programmers, Generative AI offers tangible benefits. It helps with writing and debugging code, making our busy lives a bit easier as a result. But there are now competing tools like ChatGPT and Bard, which begs the question: which one is best for me to use? We compare these tools against each other in the ultimate battle to see which is the most feature-rich tool right now for programming purposes.",
-  },
-  {
-    id: "2",
-    title: "How to become a software developer with no prior experience",
-    content:
-      "It’s not surprising -- these days the space is so vast with numerous programming languages, form factors, application layers, and business domains to consider that it can be challenging to know where to start.",
-  },
-  {
-    id: "3",
-    title:
-      "AWS re:Inforce: Take these generative AI and cloud security measures",
-    content:
-      "The theme of AWS re:Inforce 2024 is security in the age of generative AI. (Shocking, right?).",
-  },
-  {
-    id: "4",
-    title: "IT skills you (and your tech teams) need to develop at work",
-    content:
-      "When tech changes, the skills an organization needs also change. As a technologist, what skills should you prioritize learning to build or boost your tech career.",
-  },
-  {
-    id: "5",
-    title: "The 10 most in-demand tech skills in 2024 (with skill tests)",
-    content:
-      "Upskilling is part and parcel with being in tech, but it can be tough to know where to spend your efforts.",
-  },
-];
-
-// Main component rendering the list of posts
-const App = () => {
-  return (
-    <div>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </div>
-  );
-};
-
-export default App;
+export default PostPage;
