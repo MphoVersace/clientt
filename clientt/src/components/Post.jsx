@@ -1,9 +1,6 @@
-// src/components/PostPage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPost, addComment, deleteComments } from "./api"; // Adjust the path if necessary
-
-import "./App.css";
+import { getPost, addComment, deleteComments } from "../api/api";
 
 const PostPage = () => {
   const { id } = useParams();
