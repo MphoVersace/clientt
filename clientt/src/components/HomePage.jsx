@@ -5,7 +5,7 @@ import "./App.css";
 import "../index.css";
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([]);
+  const [setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -18,7 +18,7 @@ const HomePage = () => {
     };
 
     fetchPosts();
-  }, []);
+  });
 
   // Example posts data for demonstration purposes
   const examplePosts = [

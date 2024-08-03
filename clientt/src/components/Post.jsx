@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPost, addComment, deleteComments } from "./api"; // Adjust the path if necessary
-import "../styling/Post.css";
+
 import "./App.css";
 
 const PostPage = () => {
