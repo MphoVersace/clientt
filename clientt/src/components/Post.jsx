@@ -1,104 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getPost, addComment, deleteComments } from "../api/api";
-
-const PostPage = () => {
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import "../index.css";
+const Post = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const fetchedPost = await getPost(id);
-        if (fetchedPost) {
-          setPost(fetchedPost);
-          setComments(fetchedPost.comments || []);
-        } else {
-          setError("Post not found");
-        }
-      } catch (err) {
-        setError("Failed to fetch post");
-      } finally {
-        setLoading(false);
+        const response = await axios.get(
+          `http://localhost:4000/api/posts/${id}`
+        );
+        setPost(response.data);
+      } catch (error) {
+        console.error("Error fetching post:", error);
       }
     };
 
     fetchPost();
   }, [id]);
 
-  const handleCommentSubmit = async (e) => {
-    e.preventDefault();
-    const newComment = { text: comment };
+  const handleAddComment = async () => {
     try {
-      await addComment(id, newComment);
-      setComments((prevComments) => [...prevComments, newComment]);
-      setComment("");
-    } catch (err) {
-      setError("Failed to add comment");
+      await axios.post(`http://localhost:4000/api/posts/${id}/comments`, {
+        text: newComment,
+      });
+      setNewComment("");
+      const response = await axios.get(`http://localhost:4000/api/posts/${id}`);
+      setPost(response.data);
+    } catch (error) {
+      console.error("Error adding comment:", error);
     }
   };
 
-  const handleDeleteComments = async () => {
-    try {
-      await deleteComments(id);
-      setComments([]);
-    } catch (err) {
-      setError("Failed to delete comments");
-    }
-  };
-
-  if (loading) return <div>Loading...</div>;
-
-  if (error) return <div>{error}</div>;
-
-  if (!post) return <div>Post not found</div>;
+  if (!post) return <p>Loading...</p>;
 
   return (
-    <div className="post-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        &larr; Back
-      </button>
-      <h2>{post.title}</h2>
-      <img src={post.image} alt={post.title} className="post-image" />
-      <p className="post-content">{post.content}</p>
-      <hr className="post-divider" />
-      <h3>Comments</h3>
-      <button className="delete-comments-button" onClick={handleDeleteComments}>
-        Erase
-      </button>
-      <ul className="comments-list">
-        {comments.length > 0 ? (
-          comments.map((comment, index) => (
-            <li key={index} className="comment-item">
-              {comment.text}
-            </li>
-          ))
-        ) : (
-          <li>No comments yet</li>
-        )}
-      </ul>
-      <form onSubmit={handleCommentSubmit} className="comment-form">
-        <div className="comment-input-group">
-          <label htmlFor="comment">Leave a comment:</label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-            className="comment-textarea"
-          />
-        </div>
-        <button type="submit" className="comment-button">
-          Add Comment
-        </button>
-      </form>
+    <div className="container post-detail">
+      <h1>{post.title}</h1>
+      <img src={post.imageUrl} alt={post.title} />
+      <p>{post.content}</p>
+      <div className="comments">
+        <h2>Comments</h2>
+        <ul>
+          {post.comments &&
+            post.comments.map((comment) => (
+              <li key={comment.id}>{comment.text}</li>
+            ))}
+        </ul>
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment"
+        />
+        <button onClick={handleAddComment}>Submit</button>
+      </div>
     </div>
   );
 };
 
-export default PostPage;
+export default Post;

@@ -19,7 +19,7 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className="posts-grid">
+    <div className="container posts-grid">
       {posts.map((post) => (
         <div key={post.id} className="post">
           <h3>{post.title}</h3>
