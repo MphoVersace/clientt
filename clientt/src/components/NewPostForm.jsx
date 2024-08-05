@@ -1,40 +1,59 @@
 import React, { useState } from "react";
 import axios from "axios";
+import api from "../api/api";
 
 const NewPostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("/posts", { title, content })
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error("Error adding post:", error));
+    try {
+      await axios.post("http://localhost:4000/api/posts", {
+        title,
+        content,
+        imageUrl,
+      });
+      setTitle("");
+      setContent("");
+      setImageUrl("");
+      // Redirect or show success message
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
   };
 
   return (
-    <div className="new-post-form-container">
-      <h2 className="form-title">Create New Post</h2>
-      <form onSubmit={handleSubmit} className="new-post-form">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          className="form-input"
-          required
-        />
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Content"
-          className="form-textarea"
-          required
-        />
-        <button type="submit" className="form-button">
-          Add Post
-        </button>
+    <div className="create-post">
+      <h1>Create New Post</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Title:
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Content:
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+          />
+        </label>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

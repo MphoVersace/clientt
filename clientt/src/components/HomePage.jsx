@@ -1,51 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { getPosts } from "../api/api"; // Adjust the path as needed
+import "../index.css";
 
 const HomePage = () => {
-  const [setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/api/posts");
-        setPosts(response.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
+      const fetchedPosts = await getPosts();
+      setPosts(fetchedPosts);
     };
 
     fetchPosts();
-  });
-
-  // Example posts data for demonstration purposes
-  const examplePosts = [
-    {
-      id: 1,
-      title: "18 3-Step Summer Lunches To Make Forever",
-      image:
-        "https://www.eatingwell.com/thmb/uVahXWoJ-nIPnXOy7Ufc_nLA1pw=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/8239558-c2345ceb0ca34be5b06e87005b729b64.jpg",
-      content:
-        "Start your day off right with these nutritious breakfast recipes. Packed with energy and flavor, these dishes are sure to get your day off to a great start.",
-    },
-    {
-      id: 2,
-      title: "25 High-Protein Breakfast Recipes to Make Forever",
-      image:
-        "https://www.eatingwell.com/thmb/2O4Qn91IVkDs316jWp_Z-Yzzq00=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/EWL-green-breakfast-sandwich-with-pesto-hero-247-cabef6ec85f74ca58d5a0ecac41eeb0b.jpg",
-      content:
-        "You might wake up with a smile on your face thinking of these yummy breakfast ideas. Rated with 4- and 5-stars, our readers have been loving these recipes, and we think you will too. Each serving contains at least 15 grams of protein, which helps support healthy digestion, muscle growth and energy production. You’ll want to start your day with tasty options like our Peanut-Ginger Tofu Scramble or High-Protein Peach Muffins for a delicious and nourishing morning meal!",
-    },
-    {
-      id: 3,
-      title:
-        "This Crustless Spinach & Goat Cheese Quiche Is As Simple As It Gets",
-      image:
-        "https://www.eatingwell.com/thmb/L9Z7owYqn0RhHLA6jHHcexgR_SU=/364x242/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/crustless-spinach-goat-cheese-quiche-beauty3x2-288-bdeffb8fad064303b704a47c67b106c9.jpg",
-      content:
-        "Let this weekend-worthy quiche elevate your next brunch spread. You’ll love how easy it is to pull together without the fuss of baking and filling a crust. We love the convenience of pre-washed baby spinach, but any dark leafy green, from kale to Swiss chard, can work well in its place.",
-    },
-  ];
+  }, []);
 
   return (
     <div className="home-page">
@@ -129,7 +97,6 @@ const HomePage = () => {
           Recipes for Specific Health Conditions
         </Link>
       </div>
-
       <div className="upper-social">
         <a
           href="https://za.pinterest.com/pin-builder/?description=Recipes+for+Specific+Health+Condition&media=https%3A%2F%2Fwww.eatingwell.com%2Fthmb%2FiY-orpF_zEK-tayEo2bF01rnHP8%3D%2F750x0%2F76564-b95124f8ff224029b0bb711a709b7a63.jpg&method=button&url=https%3A%2F%2Fwww.eatingwell.com%2Frecipes%2F22823%2Fhealth-condition%2F%3Futm_source%3Dpinterest%26utm_medium%3Dsocial%26utm_campaign%3Dshareurlbuttons"
@@ -149,9 +116,9 @@ const HomePage = () => {
         |<a href="mailto:example@example.com">Email</a>
       </div>
 
-      <h2 className="posts-header">Latest Blog Posts</h2>
-      <div className="posts-grid">
-        {examplePosts.map((post) => (
+      <h2 className="post-header">Latest Blog Post</h2>
+      <div className="post-grid">
+        {posts.map((post) => (
           <div key={post.id} className="post">
             <h3>{post.title}</h3>
             <img src={post.image} alt={post.title} />
