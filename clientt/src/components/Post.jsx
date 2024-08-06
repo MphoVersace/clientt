@@ -7,6 +7,7 @@ import "../index.css";
 import Image from "./assets/pic1.webp";
 import Image2 from "./assets/Pic2.webp";
 import Image3 from "./assets/pic3.webp";
+import Image4 from "./assets/Pic4.webp"; // Renamed import
 
 const Post = () => {
   const { id } = useParams();
@@ -45,7 +46,9 @@ const Post = () => {
 
   // Use imported images based on post ID or other criteria
   const postImage =
-    post.id === "3"
+    post.id === "4"
+      ? Image4
+      : post.id === "3"
       ? Image3
       : post.id === "2"
       ? Image2
