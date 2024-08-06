@@ -3,8 +3,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../index.css";
 
-// Import images (replace 'exampleImage.jpg' with your actual image filenames)
-import exampleImage from "./assets/pic1.webp";
+// Import images
+import Image from "./assets/pic1.webp";
+import Image2 from "./assets/Pic2.webp";
+import Image3 from "./assets/";
 
 const Post = () => {
   const { id } = useParams();
@@ -42,7 +44,9 @@ const Post = () => {
   if (!post) return <p>Loading...</p>;
 
   // Use the imported image or a fallback if the post.imageUrl is not available
-  const postImage = post.imageUrl ? post.imageUrl : exampleImage;
+  // You can add your own condition to decide when to use Image2
+  const postImage =
+    post.id === "2" ? Image2 : post.imageUrl ? post.imageUrl : Image;
 
   return (
     <div className="container post-detail">
