@@ -3,6 +3,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../index.css";
 
+// Import images (replace 'exampleImage.jpg' with your actual image filenames)
+import exampleImage from "./assets/pic1.webp";
+
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
@@ -38,18 +41,13 @@ const Post = () => {
 
   if (!post) return <p>Loading...</p>;
 
+  // Use the imported image or a fallback if the post.imageUrl is not available
+  const postImage = post.imageUrl ? post.imageUrl : exampleImage;
+
   return (
     <div className="container post-detail">
       <h1>{post.title}</h1>
-      <img
-        src={post.imageUrl}
-        alt={post.title}
-        onError={(e) => {
-          e.target.onerror = null; // prevents infinite loop if fallback also fails
-          e.target.src = "path/to/fallback-image.jpg"; // replace with the path to a local fallback image
-          console.error("Image failed to load:", post.imageUrl);
-        }}
-      />
+      <img src={postImage} alt={post.title} />
       <p>{post.content}</p>
       <div className="comments">
         <h2>Comments</h2>
