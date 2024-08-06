@@ -6,7 +6,7 @@ import "../index.css";
 // Import images
 import Image from "./assets/pic1.webp";
 import Image2 from "./assets/Pic2.webp";
-import Image3 from "./assets/";
+import Image3 from "./assets/pic3.webp";
 
 const Post = () => {
   const { id } = useParams();
@@ -43,10 +43,15 @@ const Post = () => {
 
   if (!post) return <p>Loading...</p>;
 
-  // Use the imported image or a fallback if the post.imageUrl is not available
-  // You can add your own condition to decide when to use Image2
+  // Use imported images based on post ID or other criteria
   const postImage =
-    post.id === "2" ? Image2 : post.imageUrl ? post.imageUrl : Image;
+    post.id === "3"
+      ? Image3
+      : post.id === "2"
+      ? Image2
+      : post.imageUrl
+      ? post.imageUrl
+      : Image;
 
   return (
     <div className="container post-detail">
