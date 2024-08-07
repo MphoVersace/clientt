@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const NewPostForm = () => {
+const NewPostForm = ({ onPostCreated }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
-      await axios.post("http://localhost:4000/api/posts", {
+      const response = await axios.post("http://localhost:4000/api/posts", {
         title,
         content,
-        imageUrl,
+        image: imageUrl,
       });
+      if (onPostCreated) {
+        onPostCreated(response.data); // Call the callback with the new post data
+      }
       setTitle("");
       setContent("");
       setImageUrl("");
-      // Redirect or show success message
     } catch (error) {
-      console.error("Error creating post:", error);
+      setError(
+        "Error creating post: " + error.response?.data?.errors?.[0]?.msg ||
+          error.message
+      );
     }
   };
 
@@ -53,6 +60,7 @@ const NewPostForm = () => {
           />
         </label>
         <button type="submit">Submit</button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

@@ -464,3 +464,39 @@ nav a.active {
   height: auto;
   border-radius: 4px;
 }
+.posts-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  padding: 20px; /* Optional: add padding around the container */
+}
+
+.posts-list {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of items if they exceed container width */
+  gap: 20px; /* Space between items */
+  justify-content: center; /* Center items horizontally within the flex container */
+  width: 100%; /* Ensure the container takes full width of its parent */
+}
+
+.post {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Fixed width for each post */
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.post-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
