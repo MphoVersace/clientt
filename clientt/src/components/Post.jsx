@@ -7,7 +7,7 @@ import "../index.css";
 import Image from "./assets/pic1.webp";
 import Image2 from "./assets/Pic2.webp";
 import Image3 from "./assets/pic3.webp";
-import Image4 from "./assets/Pic4.webp"; // Renamed import
+import Image4 from "./assets/Pic4.webp";
 
 const Post = () => {
   const { id } = useParams();
@@ -45,16 +45,22 @@ const Post = () => {
   if (!post) return <p>Loading...</p>;
 
   // Use imported images based on post ID or other criteria
-  const postImage =
-    post.id === "4"
-      ? Image4
-      : post.id === "3"
-      ? Image3
-      : post.id === "2"
-      ? Image2
-      : post.imageUrl
-      ? post.imageUrl
-      : Image;
+  const getPostImage = (id) => {
+    switch (id) {
+      case "1":
+        return Image;
+      case "2":
+        return Image2;
+      case "3":
+        return Image3;
+      case "4":
+        return Image4;
+      default:
+        return Image; // Default image if none match
+    }
+  };
+
+  const postImage = getPostImage(post.id);
 
   return (
     <div className="container post-detail">
