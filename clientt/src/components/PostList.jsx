@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./PostList.css";
 
 import Image from "./assets/pic1.webp";
 import Image2 from "./assets/Pic2.webp";
@@ -20,9 +21,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          "https://blog-platform-8a1k.onrender.com/api/posts"
-        );
+        const response = await axios.get("http://localhost:4000/api/posts");
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -33,12 +32,16 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className="container posts-grid">
+    <div className="container posts-grids">
       {posts.map((post) => (
-        <div key={post.id} className="post">
+        <div key={post.id} className="postsss">
           <h3>{post.title}</h3>
-          <div className="post-image">
-            <img src={imageMap[post.imageUrl] || Image} alt={post.title} />
+          <div className="post-imagesss">
+            <img
+              src={imageMap[post.imageUrl] || Image}
+              alt={post.title}
+              style={{ width: "300px", height: "auto" }}
+            />
           </div>
           <p>{post.content.substring(0, 100)}...</p>
           <Link to={`/post/${post.id}`}>Read more</Link>
