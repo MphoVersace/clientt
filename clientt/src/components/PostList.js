@@ -6,7 +6,9 @@ const PostList = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/posts");
+      const response = await axios.get(
+        "https://blog-platform-8a1k.onrender.com/api/posts"
+      );
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
