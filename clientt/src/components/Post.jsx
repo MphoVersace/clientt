@@ -17,9 +17,7 @@ const Post = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:4000/api/posts/${id}`
-        );
+        const response = await axios.get(`http://localhost:4000/posts/${id}`);
         setPost(response.data);
       } catch (error) {
         console.error("Error fetching post:", error);
@@ -31,11 +29,11 @@ const Post = () => {
 
   const handleAddComment = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/posts/${id}/comments`, {
+      await axios.post(`http://localhost:4000/posts/${id}/comments`, {
         text: newComment,
       });
       setNewComment("");
-      const response = await axios.get(`http://localhost:4000/api/posts/${id}`);
+      const response = await axios.get(`http://localhost:4000/posts/${id}`);
       setPost(response.data);
     } catch (error) {
       console.error("Error adding comment:", error);
