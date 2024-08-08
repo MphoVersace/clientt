@@ -11,11 +11,14 @@ const NewPostForm = ({ onPostCreated }) => {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.post("http://localhost:4000/api/posts", {
-        title,
-        content,
-        image: imageUrl,
-      });
+      const response = await axios.post(
+        "https://blog-platform-8a1k.onrender.com/posts",
+        {
+          title,
+          content,
+          image: imageUrl,
+        }
+      );
       if (onPostCreated) {
         onPostCreated(response.data); // Call the callback with the new post data
       }
